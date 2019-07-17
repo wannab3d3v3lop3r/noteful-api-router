@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
-import './Folders.css'
+import '../Folders/Folders.css'
 
 export class Folder extends Component {
     render() {
@@ -8,8 +8,8 @@ export class Folder extends Component {
             <div>
                 <ul>
                     {this.props.folders.map((item) => {
-                        return <Link to={`/folders/${item.id}`} key={item.id}>
-                                    <li>
+                        return <Link to={`/note/${item.id}`}>
+                                    <li key={item.id}>
                                         <div className="folders">
                                             
                                                 {item.name}

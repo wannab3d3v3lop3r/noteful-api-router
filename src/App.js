@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Route } from 'react-router-dom'
+import { Route, Link } from 'react-router-dom'
 import  dummyStore  from './dumm-store'
 import Notes from './Notes/Notes'
 import Folders from './Folders/Folders'
@@ -18,12 +18,16 @@ export class App extends Component {
     return (
       <div className="App">
         <header>
-        <a href="/"><h1>Noteful</h1></a>
+          <Link to="/"><h1>Noteful</h1></Link>
         </header>
         <main className="main">
           <nav className="left">
               <Route 
                 path="/" exact
+                render={() => <Folders folders={this.state.folders}/>}
+              />
+              <Route 
+                path="/folders/:folderId" 
                 render={() => <Folders folders={this.state.folders}/>}
               />
           </nav>
@@ -34,10 +38,11 @@ export class App extends Component {
               />
               <Route 
                 path="/folders/:folderId"
-                render={({match}) => {
-                  console.log(`match is`, match);
-                  return <Notes notes={this.state.notes.filter((item) => item.id === match.folderId)} /> 
-                }}
+                render={({match}) => <Notes notes={this.state.notes.filter((item) => item.folderId === match.params.folderId)} />}
+              />
+              <Route
+                path="/notes/:noteId" 
+                render={({match}) => <Notes notes={this.state.notes.filter((item => item.id === match.params.noteId))}/>} 
               />
             <button>Add Note</button>
             <p>{dummyStore.notes.content}</p>

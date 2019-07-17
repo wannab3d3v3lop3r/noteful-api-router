@@ -1,7 +1,8 @@
 .folders {
     text-align: center;
     padding: 40px;
-    border-bottom: 1px black solid;
+    border: 1px black solid;
+    margin: 5px 0 5px 0;
 }
 
 ul {
