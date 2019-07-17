@@ -4,24 +4,21 @@ import './Notes.css'
 
 export class Notes extends Component {
     render() {
-        console.log(`props is`, this.props)
-        console.log(this.props.notes[0].content)
+        const {notes} = this.props;
         return (
             <div>
                 <ul>
-                    {this.props.notes.map(note => {
-                        return <Link to={`/notes/${note.id}`} key={note.id} >
-                                    <li className="note">
-                                        <div>
-                                            <h2>{note.name}</h2>
-                                            <p>{note.modified}</p>
-                                            <button>Delete</button>
-                                        </div>
-                                    </li>
-                               </Link>
+                    {notes.map(note => {
+                        return <li className="note" key={note.id}>
+                                    <Link to={`/notes/${note.id}`}> 
+                                        <h2>{note.name}</h2>
+                                    </Link>
+                                    <p>{note.modified}</p>
+                                    <button>Delete</button>
+                                </li>
                     })}
                 </ul>
-                {this.props.notes.length === 1 ? <p>{this.props.notes[0].content}</p> : ''}
+                {notes.length === 1 ? <p>{notes[0].content}</p> : ''}
             </div>
         )
     }

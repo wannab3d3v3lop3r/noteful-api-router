@@ -11,9 +11,7 @@ export class Folder extends Component {
                         return <Link to={`/folders/${item.id}`} key={item.id}>
                                     <li>
                                         <div className="folders">
-                                            
-                                                {item.name}
-                                            
+                                            {item.name}
                                         </div>
                                     </li>
                                 </Link>
