@@ -4,8 +4,18 @@ import './Notes.css'
 export class Notes extends Component {
     render() {
         return (
-            <div class="folders">
-              <a href="/">{this.props.folders.name}</a>
+            <div>
+                <ul>
+                    {this.props.notes.map(note => {
+                        return <li className="note" key={note.id}>
+                                    <div>
+                                        <h2>{note.name}</h2>
+                                        <p>{note.modified}</p>
+                                        <button>Delete</button>
+                                    </div>
+                               </li>
+                    })}
+                </ul>
             </div>
         )
     }

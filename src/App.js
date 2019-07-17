@@ -1,48 +1,51 @@
-import React from 'react';
-// import {Route} from 'react-router-dom'
-// import MainPage from './MainPage/MainPage'
+import React, { Component } from 'react'
+import { Route } from 'react-router-dom'
 import  dummyStore  from './dumm-store'
+import Notes from './Notes/Notes'
+import Folders from './Folders/Folders'
 import './App.css';
 
+export class App extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      folders: dummyStore.folders,
+      notes: dummyStore.notes
+    }
+  }
 
-function App() {
-  return (
-    <div className="App">
+  render() {
+    return (
+      <div className="App">
         <header>
-          <a href="/"><h1>Noteful</h1></a>
+        <a href="/"><h1>Noteful</h1></a>
         </header>
-        <main class="main">
-          <nav class="left">
-            <div class="folders">
-              <a href="/">{dummyStore.folders[0].name}</a>
-            </div>
-            <div class="folders">
-              <a href="/">{dummyStore.folders[1].name}</a>
-            </div>
-            <div class="folders">
-              <a href="/">{dummyStore.folders[2].name}</a>
-            </div>
-            <button class="btn" type="button">Add Folder</button>
+        <main className="main">
+          <nav className="left">
+              <Route 
+                path="/" exact
+                render={() => <Folders folders={this.state.folders}/>}
+              />
           </nav>
-          <section class="right">
-            <ul>
-              {dummyStore.notes.map(note => {
-                return <li class="note">
-                          <div>
-                            <h2>{note.name}</h2>
-                            <p>{note.modified}</p>
-                            <button>Delete</button>
-                          </div>
-                        </li>
-                })
-              }
-            </ul>
-          <button>Add Note</button>
-          <p>{dummyStore.notes.content}</p>
-        </section>
-      </main>
-    </div>
-  );
+          <section className="right">
+              <Route 
+                path="/" exact
+                render={() => <Notes notes={this.state.notes}/>}
+              />
+              <Route 
+                path="/folders/:folderId"
+                render={({match}) => {
+                  console.log(`match is`, match);
+                  return <Notes notes={this.state.notes.filter((item) => item.id === match.folderId)} /> 
+                }}
+              />
+            <button>Add Note</button>
+            <p>{dummyStore.notes.content}</p>
+          </section>
+        </main>
+      </div>
+    )
+  }
 }
 
-export default App;
+export default App
