@@ -10,7 +10,7 @@ export class Notes extends Component {
             <div>
                 <ul>
                     {this.props.notes.map(note => {
-                        return <Link to={`notes/${note.id}`} key={note.id} >
+                        return <Link to={`/notes/${note.id}`} key={note.id} >
                                     <li className="note">
                                         <div>
                                             <h2>{note.name}</h2>

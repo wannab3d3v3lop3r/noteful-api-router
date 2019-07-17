@@ -2,27 +2,22 @@ import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
 import '../Folders/Folders.css'
 
-export class Folder extends Component {
+export class BackButton extends Component {
     render() {
         return (
             <div>
                 <ul>
-                    {this.props.folders.map((item) => {
-                        return <Link to={`/note/${item.id}`}>
-                                    <li key={item.id}>
-                                        <div className="folders">
-                                            
-                                                {item.name}
-                                            
-                                        </div>
-                                    </li>
-                                </Link>
-                    })}
+                    <Link to={`/`}>
+                        <li>
+                            <div className="folders">
+                                Go back
+                            </div>
+                        </li>
+                    </Link>
                 </ul>
-                <button className="btn" type="button">Add Folder</button>
             </div>
         )
     }
 }
 
-export default Folder
+export default BackButton

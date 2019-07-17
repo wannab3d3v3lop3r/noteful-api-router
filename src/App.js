@@ -3,6 +3,7 @@ import { Route, Link } from 'react-router-dom'
 import  dummyStore  from './dumm-store'
 import Notes from './Notes/Notes'
 import Folders from './Folders/Folders'
+import backButton from './BackButton/BackButton'
 import './App.css';
 
 export class App extends Component {
@@ -30,6 +31,10 @@ export class App extends Component {
                 path="/folders/:folderId" 
                 render={() => <Folders folders={this.state.folders}/>}
               />
+              <Route 
+                path="/notes/:notesId"
+                component={backButton}
+              />
           </nav>
           <section className="right">
               <Route 
@@ -45,7 +50,6 @@ export class App extends Component {
                 render={({match}) => <Notes notes={this.state.notes.filter((item => item.id === match.params.noteId))}/>} 
               />
             <button>Add Note</button>
-            <p>{dummyStore.notes.content}</p>
           </section>
         </main>
       </div>
