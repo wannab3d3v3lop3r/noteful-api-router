@@ -5,6 +5,8 @@ import NotesWithoutLinks from './Notes/NotesWithoutLinks'
 import Folders from './Folders/Folders'
 import backButton from './BackButton/BackButton'
 import NoteContext from './NoteContext';
+import AddFolder from './AddFolder/AddFolder'
+import AddNotes from './AddNotes/AddNotes'
 import './App.css';
 
 export class App extends Component {
@@ -17,6 +19,11 @@ export class App extends Component {
   }
 
   componentDidMount(){
+    this.fetchFolders();
+    this.fetchNotes();
+  }
+
+  fetchFolders = () => {
     fetch('http://localhost:9090/folders', {
       method: 'GET',
       headers: {
@@ -35,7 +42,9 @@ export class App extends Component {
     .catch(err => {
       console.error(err);
     })
+  }
 
+  fetchNotes = () => {
     fetch('http://localhost:9090/notes', {
       method: 'GET',
       headers: {
@@ -64,18 +73,33 @@ export class App extends Component {
     this.setState({folders})
   }
 
+  addFolders = newFolder => {
+    console.log(newFolder)
+    this.setState({folders: [...this.state.folders, newFolder]})
+    this.fetchFolders();
+  }
+
+  addNotes = newNotes => {
+    this.setState({notes: [...this.state.notes, newNotes]})
+    this.fetchNotes();
+  }
+
   deleteNotes = noteId => {
     const newNotes = this.state.notes.filter(note => note.id !== noteId)
     this.setState({
       notes: newNotes
-    })
+  })
+
+    this.fetchNotes();
   }
 
   render() {
     const contextValue = {
       notes: this.state.notes,
       folders: this.state.folders,
-      deleteNotes: this.deleteNotes
+      deleteNotes: this.deleteNotes,
+      addNotes: this.addNotes,
+      addFolders: this.addFolders
     }
 
     return (
@@ -96,6 +120,14 @@ export class App extends Component {
                 />
                 <Route 
                   path="/notes/:notesId"
+                  component={backButton}
+                />
+                <Route 
+                  path="/addFolder"
+                  component={backButton}
+                />
+                <Route 
+                  path="/addNotes"
                   component={backButton}
                 />
             </nav>
@@ -125,6 +157,14 @@ export class App extends Component {
                     goBack={() => history.push('/')}
                   />
                   }}
+                />
+                <Route 
+                  path="/addFolder"
+                  component={AddFolder}
+                />
+                  <Route 
+                  path="/addNotes"
+                  component={AddNotes}
                 />
             </section>
           </main>

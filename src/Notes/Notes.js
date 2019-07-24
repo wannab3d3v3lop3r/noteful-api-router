@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import NoteContext from '../NoteContext'
 import './Notes.css'
 
-function deleteMethod(noteId,cb,homePage){
+function deleteMethod(noteId,cb){
     fetch(`http://localhost:9090/notes/${noteId}`, {
         method: 'DELETE',
         headers: {
@@ -19,7 +19,6 @@ function deleteMethod(noteId,cb,homePage){
     })
     .then(newNotes => {
         cb(newNotes)
-        homePage();
     })
     .catch(err => {
         console.error(err);
@@ -28,8 +27,7 @@ function deleteMethod(noteId,cb,homePage){
 
 export class Notes extends Component {
     render() {
-        const {notes, goBack} = this.props;
-        console.log(this.props);
+        const {notes} = this.props;
         return (
             <NoteContext.Consumer>
                 {context => 
@@ -43,7 +41,7 @@ export class Notes extends Component {
                                             <p>{note.modified}</p>
                                             <button 
                                                 onClick={() => {
-                                                    deleteMethod(note.id,context.deleteNotes,goBack)
+                                                    deleteMethod(note.id,context.deleteNotes)
                                                 }}
                                             >
                                                 Delete
@@ -51,7 +49,9 @@ export class Notes extends Component {
                                         </li>
                             })}
                         </ul>
-                        <button>Add Note</button>
+                        <Link to="/addNotes">
+                            <button>Add Note</button>
+                        </Link>
                     </div>
                 }
             </NoteContext.Consumer>
