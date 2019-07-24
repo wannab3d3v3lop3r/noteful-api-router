@@ -49,9 +49,6 @@ export class Notes extends Component {
                                         </li>
                             })}
                         </ul>
-                        <Link to="/addNotes">
-                            <button>Add Note</button>
-                        </Link>
                     </div>
                 }
             </NoteContext.Consumer>

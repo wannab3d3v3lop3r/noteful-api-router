@@ -17,9 +17,6 @@ export class Folder extends Component {
                                 </Link>
                     })}
                 </ul>
-                <Link to='/addFolder'>
-                    <button className="btn" type="button" >Add Folder</button>
-                </Link>
             </div>
         )
     }

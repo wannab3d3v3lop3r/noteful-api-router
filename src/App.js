@@ -105,7 +105,15 @@ export class App extends Component {
     return (
       <div className="App">
         <header>
-          <Link to="/"><h1>Noteful</h1></Link>
+            <Link to="/"><h1>Noteful</h1></Link>
+            <div class="">
+              <Link to="/addNotes">
+                <p class>Add Note</p>
+              </Link>
+              <Link to='/addFolder'>
+                <p>Add Folder</p>
+              </Link>
+          </div>
         </header>
         <NoteContext.Provider value={contextValue}>
           <main className="main">
