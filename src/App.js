@@ -7,6 +7,7 @@ import backButton from './BackButton/BackButton'
 import NoteContext from './NoteContext';
 import AddFolder from './AddFolder/AddFolder'
 import AddNotes from './AddNotes/AddNotes'
+import ErrorBoundary from './ErrorBoundary'
 import './App.css';
 
 export class App extends Component {
@@ -106,9 +107,9 @@ export class App extends Component {
       <div className="App">
         <header>
             <Link to="/"><h1>Noteful</h1></Link>
-            <div class="">
+            <div>
               <Link to="/addNotes">
-                <p class>Add Note</p>
+                <p>Add Note</p>
               </Link>
               <Link to='/addFolder'>
                 <p>Add Folder</p>
@@ -118,28 +119,37 @@ export class App extends Component {
         <NoteContext.Provider value={contextValue}>
           <main className="main">
             <nav className="left">
+              <ErrorBoundary>
                 <Route 
                   path="/" exact
                   render={() => <Folders folders={this.state.folders}/>}
                 />
+              </ErrorBoundary>
                 <Route 
                   path="/folders/:folderId" 
                   render={() => <Folders folders={this.state.folders}/>}
                 />
+              <ErrorBoundary>
                 <Route 
                   path="/notes/:notesId"
                   component={backButton}
                 />
+              </ErrorBoundary>
+              <ErrorBoundary>
                 <Route 
                   path="/addFolder"
                   component={backButton}
                 />
+              </ErrorBoundary>
+              <ErrorBoundary>
                 <Route 
                   path="/addNotes"
                   component={backButton}
                 />
+              </ErrorBoundary>
             </nav>
             <section className="right">
+              <ErrorBoundary>
                 <Route 
                   path="/" exact
                   render={({history}) => {
@@ -149,6 +159,8 @@ export class App extends Component {
                     />
                   }}
                 />
+              </ErrorBoundary>
+              <ErrorBoundary>
                 <Route 
                   path="/folders/:folderId"
                   render={({match, history}) => {
@@ -157,6 +169,8 @@ export class App extends Component {
                     goBack={() => history.push('/')} 
                   />}}
                 />
+              </ErrorBoundary>
+              <ErrorBoundary>
                 <Route
                   path="/notes/:noteId" 
                   render={({match, history}) => {
@@ -166,14 +180,19 @@ export class App extends Component {
                   />
                   }}
                 />
+              </ErrorBoundary>
+              <ErrorBoundary>
                 <Route 
                   path="/addFolder"
                   component={AddFolder}
                 />
+              </ErrorBoundary>
+              <ErrorBoundary>
                   <Route 
                   path="/addNotes"
                   component={AddNotes}
                 />
+              </ErrorBoundary>
             </section>
           </main>
         </NoteContext.Provider>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import NoteContext from '../NoteContext'
+import propTypes from 'prop-types'
 import './Notes.css'
 
 function deleteMethod(noteId,cb){
@@ -27,6 +28,7 @@ function deleteMethod(noteId,cb){
 
 export class Notes extends Component {
     render() {
+        console.log(this.props);
         const {notes} = this.props;
         return (
             <NoteContext.Consumer>
@@ -56,8 +58,15 @@ export class Notes extends Component {
     }
 }
 
-Notes.defaultProps = {
-    deleteMethod: () => {}
+Notes.propTypes = {
+    notes: propTypes.arrayOf(propTypes.shape({
+        content: propTypes.string.isRequired,
+        folderId: propTypes.string.isRequired,
+        id: propTypes.string.isRequired,
+        modified: propTypes.string.isRequired,
+        name: propTypes.string.isRequired
+    })),
+    goBack: propTypes.func
 }
 
 export default Notes
