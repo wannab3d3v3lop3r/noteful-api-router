@@ -20,6 +20,7 @@ export class App extends Component {
   }
 
   componentDidMount(){
+    console.log(`component`)
     this.fetchFolders();
     this.fetchNotes();
   }
@@ -102,6 +103,8 @@ export class App extends Component {
       addNotes: this.addNotes,
       addFolders: this.addFolders
     }
+    
+    console.log(`render`)
 
     return (
       <div className="App">

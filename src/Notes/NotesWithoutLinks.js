@@ -3,7 +3,7 @@ import NoteContext from '../NoteContext'
 import propTypes from 'prop-types'
 import './Notes.css'
 
-function deleteMethod(noteId,cb){
+function deleteMethod(noteId,cb, goBack){
     fetch(`http://localhost:9090/notes/${noteId}`, {
         method: 'DELETE',
         headers: {
@@ -19,6 +19,7 @@ function deleteMethod(noteId,cb){
     })
     .then(newNotes => {
         cb(newNotes)
+        goBack()
     })
     .catch(err => {
         console.error(err);
@@ -29,7 +30,7 @@ export class NotesWithoutLinks extends Component {
 
     
     render() {
-        const {notes} = this.props;
+        const {notes, goBack} = this.props;
         return (
             <NoteContext.Consumer>
             {context => 
@@ -41,7 +42,7 @@ export class NotesWithoutLinks extends Component {
                                         <p>{note.modified}</p>
                                         <button 
                                             onClick={() => {
-                                                deleteMethod(note.id,context.deleteNotes)
+                                                deleteMethod(note.id,context.deleteNotes, goBack)
                                             }}>
                                             Delete
                                         </button>
